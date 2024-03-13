@@ -7,7 +7,7 @@ import Home from './Home';
 
 const App = () => {
   return (
-    <Router>
+    <Router basename="/cuenta-general">
       <div>
         <NavBar />
         <Routes> {/* Utiliza Routes para definir las rutas */}
