@@ -51,13 +51,12 @@ const ExpenseTracker = () => {
             <h2 className="mt-5 mb-4">Gastos Generales</h2>
             <div className="row">
                 <div className="col-md-6">
-                    <h3>Crear producto</h3>
+                    <h3>Add Item</h3>
                     <ExpenseForm onSubmit={handleSubmit} />
                 </div>
                 <div className="col-md-6">
                     <h3>Tabla</h3>
                     <ExpenseTable expenses={expenses} onDelete={handleDelete} onEdit={handleEdit} />
-                    <div id="total-expenses" className="mt-3">Gasto Total: ${expenses.reduce((acc, expense) => acc + expense.productPrice, 0).toFixed(2)}</div>
                 </div>
             </div>
         </div>

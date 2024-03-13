@@ -23,8 +23,8 @@ const ProductSection = ({ selectedUser, products, onDelete, onEdit, onSubmit }) 
     return (
         <div className="mt-4">
             <h3>Productos de {selectedUser}:</h3>
-            <ExpenseTable expenses={products} onDelete={handleDeleteProduct} onEdit={handleEditProduct} />
             <ExpenseForm onSubmit={handleProductSubmit} />
+            <ExpenseTable expenses={products} onDelete={handleDeleteProduct} onEdit={handleEditProduct} />
         </div>
     );
 };

@@ -21,16 +21,14 @@ const ExpenseForm = ({ onSubmit }) => {
     };
 
     return (
-        <form onSubmit={handleSubmit} className='d-flex align-items-center flex-column'>
-            <div className="mb-3">
-                <label htmlFor="product-name" className="form-label">Nombre del Producto:</label>
-                <input type="text" className="form-control" id="product-name" value={productName} onChange={handleProductNameChange} required />
+        <form onSubmit={handleSubmit} className="d-flex">
+            <div className="mb-3 me-2">
+                <input type="text" placeholder='Name' className="form-control" id="product-name" value={productName} onChange={handleProductNameChange} required />
             </div>
-            <div className="mb-3">
-                <label htmlFor="product-price" className="form-label">Precio:</label>
-                <input type="number" className="form-control" id="product-price" value={productPrice} onChange={handleProductPriceChange} step="0.01" min="0" required />
+            <div className="mb-3 me-2">
+                <input type="number" placeholder='Price' className="form-control" id="product-price" value={productPrice} onChange={handleProductPriceChange} step="0.01" min="0" required />
             </div>
-            <button type="submit" className="btn btn-primary"><Check /> Agregar Producto</button>
+            <button type="submit" className="btn btn-primary h-100"><Check /></button>
         </form>
     );
 };
