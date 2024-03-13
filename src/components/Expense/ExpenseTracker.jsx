@@ -12,11 +12,12 @@ const ExpenseTracker = () => {
         }
     }, []);
 
-    const handleSubmit = (productName, productPrice) => {
-        if (productName.trim() !== '' && !isNaN(productPrice) && parseFloat(productPrice) > 0) {
+    const handleSubmit = (productName, productPrice, productQuantity) => {
+        if (productName.trim() !== '' && !isNaN(productPrice) && parseFloat(productPrice) > 0 && !isNaN(productQuantity) && parseInt(productQuantity) > 0) {
             const newExpense = {
                 productName: productName,
-                productPrice: parseFloat(productPrice)
+                productPrice: parseFloat(productPrice),
+                productQuantity: parseInt(productQuantity)
             };
             setExpenses([...expenses, newExpense]);
             sessionStorage.setItem('expenses', JSON.stringify([...expenses, newExpense]));
@@ -32,12 +33,13 @@ const ExpenseTracker = () => {
         sessionStorage.setItem('expenses', JSON.stringify(updatedExpenses));
     };
 
-    const handleEdit = (index, editedProductName, editedProductPrice) => {
-        if (editedProductName.trim() !== '' && !isNaN(editedProductPrice) && parseFloat(editedProductPrice) > 0) {
+    const handleEdit = (index, editedProductName, editedProductPrice, editedProductQuantity) => {
+        if (editedProductName.trim() !== '' && !isNaN(editedProductPrice) && parseFloat(editedProductPrice) > 0 && !isNaN(editedProductQuantity) && parseInt(editedProductQuantity) > 0) {
             const updatedExpenses = [...expenses];
             updatedExpenses[index] = {
                 productName: editedProductName,
-                productPrice: parseFloat(editedProductPrice)
+                productPrice: parseFloat(editedProductPrice),
+                productQuantity: parseInt(editedProductQuantity)
             };
             setExpenses(updatedExpenses);
             sessionStorage.setItem('expenses', JSON.stringify(updatedExpenses));

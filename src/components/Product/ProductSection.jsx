@@ -2,11 +2,10 @@ import React from 'react';
 import ExpenseTable from '../Expense/ExpenseTable';
 import ExpenseForm from '../Expense/ExpenseForm';
 
-
 const ProductSection = ({ selectedUser, products, onDelete, onEdit, onSubmit }) => {
-    const handleProductSubmit = (name, price) => {
-        if (name.trim() !== '' && !isNaN(price) && parseFloat(price) > 0) {
-            onSubmit(name, price);
+    const handleProductSubmit = (name, price, quantity) => {
+        if (name.trim() !== '' && !isNaN(price) && parseFloat(price) > 0 && !isNaN(quantity) && parseInt(quantity) > 0) {
+            onSubmit(name, price, quantity);
         } else {
             alert('Por favor, complete todos los campos correctamente.');
         }
@@ -16,8 +15,8 @@ const ProductSection = ({ selectedUser, products, onDelete, onEdit, onSubmit }) 
         onDelete(index);
     };
 
-    const handleEditProduct = (index, name, price) => {
-        onEdit(index, name, price);
+    const handleEditProduct = (index, editedProductName, editedProductPrice, editedProductQuantity) => {
+        onEdit(index, editedProductName, editedProductPrice, editedProductQuantity);
     };
 
     return (

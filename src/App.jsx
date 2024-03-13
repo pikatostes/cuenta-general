@@ -1,9 +1,9 @@
 // App.jsx
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'; // Importa BrowserRouter y Routes
-import ExpenseTracker from './Expense/ExpenseTracker';
-import NavBar from './NavBar';
-import Home from './Home';
+import NavBar from './components/NavBar';
+import Home from './components/Home';
+import ExpenseTracker from './components/Expense/ExpenseTracker';
 
 const App = () => {
   return (

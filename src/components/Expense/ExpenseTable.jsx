@@ -1,30 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Trash, PencilSquare, Check, X } from 'react-bootstrap-icons';
 
 const ExpenseTable = ({ expenses, onDelete, onEdit }) => {
     const [editIndex, setEditIndex] = useState(null);
     const [editProductName, setEditProductName] = useState('');
     const [editProductPrice, setEditProductPrice] = useState('');
-    const [numberOfPeople, setNumberOfPeople] = useState(1);
+    const [editProductQuantity, setEditProductQuantity] = useState('');
+    const [numberOfPeople, setNumberOfPeople] = useState(() => {
+        const storedNumberOfPeople = sessionStorage.getItem('numberOfPeople');
+        return storedNumberOfPeople ? parseInt(storedNumberOfPeople) : 1;
+    });
 
     const handleEdit = (index) => {
         const expenseToEdit = expenses[index];
         setEditIndex(index);
         setEditProductName(expenseToEdit.productName);
         setEditProductPrice(expenseToEdit.productPrice);
+        setEditProductQuantity(expenseToEdit.productQuantity);
         onEdit(index);
     };
 
     const handleSaveEdit = () => {
-        onEdit(editIndex, editProductName, editProductPrice);
+        onEdit(editIndex, editProductName, editProductPrice, editProductQuantity);
         setEditIndex(null);
     };
 
     const handleNumberOfPeopleChange = (event) => {
-        setNumberOfPeople(parseInt(event.target.value));
+        const newNumberOfPeople = parseInt(event.target.value);
+        setNumberOfPeople(newNumberOfPeople);
+        sessionStorage.setItem('numberOfPeople', newNumberOfPeople);
     };
 
-    const totalExpense = expenses.reduce((total, expense) => total + expense.productPrice, 0);
+    const totalExpense = expenses.reduce((total, expense) => total + expense.productPrice * expense.productQuantity, 0);
     const individualExpense = (totalExpense / numberOfPeople).toFixed(2);
 
     return (
@@ -35,13 +42,14 @@ const ExpenseTable = ({ expenses, onDelete, onEdit }) => {
                         <tr>
                             <th>Producto</th>
                             <th>Precio</th>
+                            <th>Cantidad</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
                         {expenses.map((expense, index) => (
                             <tr key={index}>
-                                <td>{editIndex === index ? (
+                                <td className="col-3">{editIndex === index ? (
                                     <input
                                         type="text"
                                         className="form-control"
@@ -51,7 +59,7 @@ const ExpenseTable = ({ expenses, onDelete, onEdit }) => {
                                 ) : (
                                     expense.productName
                                 )}</td>
-                                <td>{editIndex === index ? (
+                                <td className="col-3">{editIndex === index ? (
                                     <input
                                         type="number"
                                         className="form-control"
@@ -63,7 +71,19 @@ const ExpenseTable = ({ expenses, onDelete, onEdit }) => {
                                 ) : (
                                     `$${expense.productPrice.toFixed(2)}`
                                 )}</td>
-                                <td>
+                                <td className="col-3">{editIndex === index ? (
+                                    <input
+                                        type="number"
+                                        className="form-control"
+                                        value={editProductQuantity}
+                                        onChange={(event) => setEditProductQuantity(event.target.value)}
+                                        min="1"
+                                    />
+                                ) : (
+                                    `${expense.productQuantity}`
+                                )}</td>
+                                <td className="col-3">
+                                    <div className="d-flex justify-content-around">
                                     {editIndex === index ? (
                                         <>
                                             <button className="btn btn-success me-2" onClick={handleSaveEdit}><Check /></button>
@@ -75,16 +95,16 @@ const ExpenseTable = ({ expenses, onDelete, onEdit }) => {
                                             <button className="btn btn-primary" onClick={() => handleEdit(index)}><PencilSquare /></button>
                                         </>
                                     )}
+                                    </div>
                                 </td>
                             </tr>
                         ))}
                         <tr>
-                            <td colSpan="2">Gasto total: ${totalExpense.toFixed(2)}</td>
-                            <td>Gasto individual: ${individualExpense}</td>
+                            <td className="col-6" colSpan="3">Gasto total: ${totalExpense.toFixed(2)}</td>
+                            <td className="col-6">Gasto individual: ${individualExpense}</td>
                         </tr>
                     </tbody>
                 </table>
-
             </div>
             <div className='people-number'>
                 <label htmlFor="number-of-people" className="form-label">Número de personas:</label>
