@@ -100,8 +100,8 @@ const ExpenseTable = ({ expenses, onDelete, onEdit }) => {
                             </tr>
                         ))}
                         <tr>
-                            <td className="col-6" colSpan="3">Gasto total: ${totalExpense.toFixed(2)}</td>
-                            <td className="col-6">Gasto individual: ${individualExpense}</td>
+                            <td className="col-6" colSpan="3">Total: ${totalExpense.toFixed(2)}</td>
+                            <td className="col-6">Personal: ${individualExpense}</td>
                         </tr>
                     </tbody>
                 </table>

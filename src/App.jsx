@@ -8,13 +8,13 @@ import ExpenseTracker from './components/Expense/ExpenseTracker';
 const App = () => {
   return (
     <Router basename="/cuenta-general">
-      <div>
         <NavBar />
+        <div className="bg-dark text-light p-4">
         <Routes> {/* Utiliza Routes para definir las rutas */}
-          <Route path="/" element={<Home />} /> {/* Utiliza 'element' para renderizar el componente */}
-          <Route path="/expenses" element={<ExpenseTracker />} />
+          <Route path="/" element={<ExpenseTracker />} /> {/* Utiliza 'element' para renderizar el componente */}
+          <Route path="/expenses" element={<Home />} />
         </Routes>
-      </div>
+        </div>
     </Router>
   );
 }
